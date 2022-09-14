@@ -6,7 +6,7 @@ Under the hood it uses the [openjournals/inara action](https://github.com/openjo
 
 ## Usage
 
-Usually this action is used from an ongoing review on an Open Journal repository
+Usually this action is used from an ongoing review on an Open Journal's repository
 
 ### Inputs
 
@@ -20,7 +20,7 @@ The action accepts the following inputs:
 ### Outputs
 
 - **preprint_file_path**: The path to the generated LaTeX file
-
+- **preprint_file_name**: The name of the generated LaTeX file
 
 ### Example
 
