@@ -47,6 +47,7 @@ runs:
       with:
         name: preprint-${{ inputs.journal }}-${{ inputs.issue_id }}
         path: ${{ steps.preprint-data.outputs.preprint_file_path }}
+        retention-days: 2
 branding:
   icon: file-text
   color: blue
