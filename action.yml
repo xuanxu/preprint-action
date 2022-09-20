@@ -43,6 +43,15 @@ runs:
       with:
         paper-path: ${{ steps.preprint-data.outputs.paper_file_path }}
         args: ${{steps.preprint-data.outputs.inara_args}}
+    - name: Rename file
+      id: rename-file
+      shell: bash
+      env:
+        ISSUE_ID: ${{ inputs.issue_id }}
+        JOURNAL_ALIAS: ${{ inputs.journal }}
+        PAPER_PATH: ${{steps.preprint-data.outputs.paper_file_path}}
+      run: |
+        ruby ${{ github.action_path }}/rename_preprint_file.rb
     - uses: actions/upload-artifact@v3
       with:
         name: preprint-${{ inputs.journal }}-${{ inputs.issue_id }}

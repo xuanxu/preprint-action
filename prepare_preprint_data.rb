@@ -19,16 +19,6 @@ else
   system("echo '::set-output name=paper_file_path::#{paper_path}'")
 end
 
-preprint_path = File.join(File.dirname(paper_path), "paper.preprint.tex")
-new_preprint_path = File.join(File.dirname(paper_path), "#{journal_alias}-#{issue_id}.preprint.tex")
-if File.exist?(preprint_path)
-  FileUtils.mv preprint_path, new_preprint_path
-  system("echo '::set-output name=preprint_file_path::#{new_preprint_path}'")
-else
-  system("echo 'CUSTOM_ERROR=Preprint file could not be created.' >> $GITHUB_ENV")
-  raise "   !! ERROR: Preprint file not found"
-end
-
 metadata = submission.article_metadata
 metadata[:submitted_at] = "0000-00-00" if metadata[:submitted_at].to_s.strip.empty?
 metadata[:published_at] = "0000-00-00"
