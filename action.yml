@@ -41,15 +41,12 @@ runs:
       id: build-preprint
       uses: xuanxu/publishing-artifacts-action@main
       with:
-        journal: ${{ inputs.journal_template }}
-        paper-path: ${{ steps.paper-finder.outputs.paper_file_path }}
-        args: "-o preprint"
-    - name: Check preprint
-      id: preprint-result
-      shell: bash
-      run: |
-        ruby ${{ github.action_path }}/preprint_result.rb ${{ steps.paper-finder.outputs.paper_file_path }}
-
+        paper-path: ${{ steps.preprint-data.outputs.paper_file_path }}
+        args: ${{steps.preprint-data.outputs.inara_args}}
+    - uses: actions/upload-artifact@v3
+      with:
+        name: preprint-${{ inputs.journal }}-${{ inputs.issue_id }}
+        path: ${{ steps.preprint-data.outputs.preprint_file_path }}
 branding:
   icon: file-text
   color: blue
