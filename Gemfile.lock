@@ -33,7 +33,7 @@ GEM
       rugged (~> 1.5.0)
 
 PLATFORMS
-  x86_64-darwin-21
+  ruby
 
 DEPENDENCIES
   theoj
