@@ -12,16 +12,9 @@ inputs:
     required: false
     default: ""
   journal:
-    description: The journal data to use for the paper. Default is 'joss'.
+    description: The journal to use for the preprint. Default is 'joss'.
     required: false
     default: joss
-outputs:
-  preprint_file_path:
-    description: "Path to the generated preprint file"
-    value: ${{ steps.compilation-result.outputs.paper_pdf_path }}
-  preprint_file_name:
-    description: "Name for the generated preprint file"
-    value: ${{ steps.compilation-result.outputs.paper_jats_path }}
 runs:
   using: "composite"
   steps:
@@ -33,8 +26,8 @@ runs:
         cache-version: preprint
         bundler: Gemfile.lock
         working-directory: ${{ github.action_path }}
-    - name: Find paper file
-      id: paper-finder
+    - name: Prepare data
+      id: preprint-data
       shell: bash
       env:
         ISSUE_ID: ${{ inputs.issue_id }}
@@ -43,7 +36,7 @@ runs:
         JOURNAL_ALIAS: ${{ inputs.journal }}
         BUNDLE_GEMFILE: ${{ github.action_path }}/Gemfile
       run: |
-        bundle exec ruby ${{ github.action_path }}/find_paper.rb
+        bundle exec ruby ${{ github.action_path }}/prepare_preprint_data.rb
     - name: Build preprint
       id: build-preprint
       uses: xuanxu/publishing-artifacts-action@main
