@@ -12,16 +12,21 @@ issue.paper = Theoj::Paper.from_repo(repo_url, repo_branch)
 submission = Theoj::Submission.new(journal, issue, issue.paper)
 
 paper_path = issue.paper.paper_path
-
-
 if paper_path.nil?
   system("echo 'CUSTOM_ERROR=Paper file not found.' >> $GITHUB_ENV")
   raise "   !! ERROR: Paper file not found"
 else
   system("echo '::set-output name=paper_file_path::#{paper_path}'")
+end
 
-  preprint_path = File.join(File.dirname(paper_path), "#{journal_alias}-#{issue_id}.preprint.tex")
-  system("echo '::set-output name=preprint_file_path::#{preprint_path}'")
+preprint_path = File.join(File.dirname(paper_path), "paper.preprint.tex")
+new_preprint_path = File.join(File.dirname(paper_path), "#{journal_alias}-#{issue_id}.preprint.tex")
+if File.exist?(preprint_path)
+  FileUtils.mv preprint_path, new_preprint_path
+  system("echo '::set-output name=preprint_file_path::#{new_preprint_path}'")
+else
+  system("echo 'CUSTOM_ERROR=Preprint file could not be created.' >> $GITHUB_ENV")
+  raise "   !! ERROR: Preprint file not found"
 end
 
 metadata = submission.article_metadata
