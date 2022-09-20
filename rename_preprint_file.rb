@@ -1,3 +1,5 @@
+require 'fileutils'
+
 issue_id = ENV["ISSUE_ID"]
 journal_alias = ENV["JOURNAL_ALIAS"]
 paper_path  = ENV["PAPER_PATH"]
