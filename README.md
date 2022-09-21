@@ -17,11 +17,6 @@ The action accepts the following inputs:
 - **branch**: Optional. Git branch where the paper is located.
 - **journal**: Optional. The journal data to use for the paper. Default value is `joss`.
 
-### Outputs
-
-- **preprint_file_path**: The path to the generated LaTeX file
-- **preprint_file_name**: The name of the generated LaTeX file
-
 ### Example
 
 Use it adding it as a step in a workflow `.yml` file in your repo's `.github/workflows/` directory and passing your custom input values.
