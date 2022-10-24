@@ -16,7 +16,7 @@ if paper_path.nil?
   system("echo 'CUSTOM_ERROR=Paper file not found.' >> $GITHUB_ENV")
   raise "   !! ERROR: Paper file not found"
 else
-  system("echo '::set-output name=paper_file_path::#{paper_path}'")
+  system("echo 'paper_file_path=#{paper_path}' >> $GITHUB_OUTPUT")
 end
 
 metadata = submission.article_metadata
@@ -35,7 +35,7 @@ end
 
 if File.exist?(metadata_file_path)
   title = metadata["title"]
-  system("echo '::set-output name=paper_title::#{title}'")
+  system("echo 'paper_title=#{title}' >> $GITHUB_OUTPUT")
   system("echo 'Metadata created for paper preprint: #{title}'")
 else
   system("echo 'CUSTOM_ERROR=Preprint metadata file could not be generated.' >> $GITHUB_ENV")
@@ -44,4 +44,4 @@ end
 
 inara_args = "-m #{metadata_file_path} -l -o preprint"
 
-system("echo '::set-output name=inara_args::#{inara_args}'")
+system("echo 'inara_args=#{inara_args}' >> $GITHUB_OUTPUT")

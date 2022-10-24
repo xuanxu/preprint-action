@@ -9,7 +9,7 @@ new_preprint_path = File.join(File.dirname(paper_path), "#{journal_alias}-#{issu
 
 if File.exist?(preprint_path)
   FileUtils.mv preprint_path, new_preprint_path
-  system("echo '::set-output name=preprint_file_path::#{new_preprint_path}'")
+  system("echo 'preprint_file_path=#{new_preprint_path}' >> $GITHUB_OUTPUT")
 else
   system("echo 'CUSTOM_ERROR=Preprint file could not be created.' >> $GITHUB_ENV")
   raise "   !! ERROR: Preprint file not found"
